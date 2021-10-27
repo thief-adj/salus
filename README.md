@@ -8,10 +8,12 @@ If a failure is detected (cannot reach host or service is down), a message is se
 
 ### Discbin Setup
 Get Discbin here: https://github.com/thief-adj/discbin
+
 Configure with:
 >`chmod 770`
 >`echo hello world | discbin [webhook url]`
 
 ### Run scan every 5 minutes (300s):
+
 >`screen`
 >`watch -n 300 "sudo ./salus"`
