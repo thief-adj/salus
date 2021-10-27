@@ -16,4 +16,5 @@ Configure with:
 ### Run scan every 5 minutes (300s):
 
 >`screen`
+
 >`watch -n 300 "sudo ./salus"`
