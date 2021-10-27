@@ -1,4 +1,6 @@
 # salus
+PSA: replace "37" in all IPs with your group number. use awk or sed or somethin
+
 CNIT 470 incident response service scanner. Sends failures to Discord using discbin.
 Uses nmap to check the status of running services on several machines.
 If a failure is detected (cannot reach host or service is down), a message is sent to a discord channel with the following info:
