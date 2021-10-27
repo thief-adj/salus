@@ -11,6 +11,7 @@ Get Discbin here: https://github.com/thief-adj/discbin
 
 Configure with:
 >`chmod 770`
+
 >`echo hello world | discbin [webhook url]`
 
 ### Run scan every 5 minutes (300s):
