@@ -1,0 +1,36 @@
+#!/bin/bash
+
+hosts=(10.51.37.10 10.51.37.20 10.51.37.30 10.51.37.40 10.51.37.50 10.51.37.60 10.51.37.70 10.51.37.80 10.51.37.90)
+servhosts=(10.51.37.10 10.51.37.20 10.51.37.30 10.51.37.40)
+flag=0
+discbin='/home/alice/discbin/discbin'
+
+for host in "${hosts[@]}"; do
+    scan=$(sudo nmap -sP $host | awk '!/MAC/' | head -n -1 | tail -n+2 | tr '\n' ' ')
+    echo $scan | awk '{ print $5 " " $9 }' >> sallog.txt
+    if [[ $scan =~ 'down' ]]; then
+        err=$(echo Network failure detected, couldn't ping $host)
+        flag=1
+    fi
+    if [[ $flag == 1 ]]; then
+        cat sallog.txt | grep -v If | $discbin
+        echo $err | $discbin
+        flag=0
+    fi
+done
+
+scanarr=("nmap -p 22,3306 10.51.37.10"
+    "nmap -sU -p 123 10.51.37.10"
+    "nmap -p 21 10.51.37.20"
+    "nmap -p 22 10.51.37.20"
+    "nmap -p 21,22,80 10.51.37.30"
+    "nmap -p 53,389,3389 10.51.37.40")
+
+for scan in "${scanarr[@]}"; do
+    scanout=$(sudo $scan | grep -v open | grep ^[0-9])
+    if [[ ! -z "$scanout" ]]; then
+        echo Service failure detected: $scanout | $discbin
+    fi
+done
+
+echo > sallog.txt
