@@ -31,6 +31,8 @@ Replace "00" in all IPs with your group number. For example, group 11:
 Also, edit the salus file's "discbin" variable to the full path to the discbin script. For example, if your user is "alice", and you downloaded to home:
 >`discbin='/home/alice/discbin/discbin'`
 
+Lastly, remove the private IP address of whichever machine is running Salus from the `hosts` and/or `servhosts` arrays.
+
 ### Running Scheduled, Automatic Scans:
 Advisable to run this in a screen. Alternatively, you can use cron jobs or you can create a system service. Screen is the easiest, though.
 >`screen`
