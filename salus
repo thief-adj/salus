@@ -9,8 +9,8 @@ flag=0
 discbin='/home/USER/discbin/discbin'
 
 for host in "${hosts[@]}"; do
-	scan=$(sudo nmap -sP $host | awk '!/MAC/' | head -n -1 | tail -n+2 | tr '\n' ' ')
-	echo $scan | awk '{ print $5 " " $9 }' >> sallog.txt
+	scan=$(sudo nmap -n -sP $host | awk '!/MAC/' | head -n -1 | tail -n+2 | tr '\n' ' ')
+	echo $scan | awk '{ print $5 " " $8 }' >> sallog.txt
 	if [[ $scan =~ 'down' ]]; then
 		err=$(echo Network failure detected, couldn\'t ping $host)
 		flag=1			
@@ -22,12 +22,12 @@ for host in "${hosts[@]}"; do
 	fi
 done
 
-scanarr=("nmap -p 22,3306 10.51.00.10"
-	"nmap -sU -p 123 10.51.00.10"
-	"nmap -p 21 10.51.00.20"
-	"nmap -p 22 10.51.00.20"
-	"nmap -p 21,22,80 10.51.00.30"
-	"nmap -p 53,389,3389 10.51.00.40")
+scanarr=("nmap -n -p 22,3306 10.51.00.10"
+	"nmap -n -sU -p 123 10.51.00.10"
+	"nmap -n -p 21 10.51.00.20"
+	"nmap -n -p 22 10.51.00.20"
+	"nmap -n -p 21,22,80 10.51.00.30"
+	"nmap -n -p 53,389,3389 10.51.00.40")
 
 for scan in "${scanarr[@]}"; do
 	scanout=$(sudo $scan | grep -v open | grep ^[0-9])
