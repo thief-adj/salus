@@ -32,7 +32,7 @@ scanarr=("nmap -p 22,3306 10.51.00.10"
 for scan in "${scanarr[@]}"; do
 	scanout=$(sudo $scan | grep -v open | grep ^[0-9])
 	if [[ ! -z "$scanout" ]]; then
-		echo "Service failure detected at $( echo $throwaway | awk '{ print $(NF)}'): " $scanout | $discbin
+		echo "Service failure detected at $( echo $scan | awk '{ print $(NF)}'): " $scanout | $discbin
 	fi
 done
 
